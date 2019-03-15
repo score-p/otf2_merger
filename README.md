@@ -1,17 +1,14 @@
-## otf2Merger
----
+# OTF2 Merger
 Otf2Merger v0.1 unifies multiple OTF2 traces in one absolute resulting trace.
 The merger is tested using traces produced by [Score-P](https://www.vi-hps.org/projects/score-p/).
 
-### Prerequisites
----
+## Prerequisites
 Build and compile require the followings:
 * C++17 (ISO/IEC 14882:2017)
 * OTF2 version 2.1
 * CMAKE version 3.10 or higher
 
-### Supported trace features
----
+## Supported trace features
 * Serial 
 * P-threads  
 * OpenMP
@@ -21,7 +18,7 @@ Build and compile require the followings:
 > Note: The otf2Merger can merge all possible combinations of above mentioned
 features, including in the traces.  
 
-### Building and compiling
+## Building and compiling
 We used an open-source, cross-platform building system name CMake to build and test the merger. Just create a 'build' folder to do 'cmake' and use 'make' command to compile, as follows:
 
 ```
@@ -30,8 +27,7 @@ $ make
 ```
 >Note: Load the otf2 module or set its paths during building process (cmake).
 
-### Usage
----
+## Usage
 In case of the successful compilation, use the --help to see the input command line options.
 ```
 ./bin/otf2-merger --help
@@ -71,6 +67,5 @@ Example run:
 In order to enable the Score-P support for frameworks using heterogeneous distribution systems or custom node to node communications such as big data frameworks (spark, flink, PyCOMMPs etc) and machine learning frameworks (tensorflow etc), we have come up with this new tool called otf2Merger.
 It combines all the measurements of traces from different nodes into one trace for complete performance evaluations.
 
-### Clock properties riddle
----
+## Clock properties riddle
 Currently Clock properties of the traces are adjusted with respect to the first trace's clock properties in the list. We are computing the ratio (relative clock factor) of time resolution of respective trace to the time resolution of the first trace. The relative clock factor and global offsets of the first and respective trace are used to adjust the timestamps of the events.  
