@@ -47,16 +47,17 @@ Required (req.)
 ```
 A user needs to input the following options to achieve a successful unified trace:
 
-1) --traceFile - Input the number of trace files needs to be unified with their respective absolute paths.                                                                     
-For example: --traceFile "/home/otf2Merger/traces/comp1/traces.otf2"
-             --traceFile "/home/otf2Merger/traces/comp2/traces.otf2"
+`--traceFile` - Input the number of trace files needs to be unified with their respective absolute paths.                                                                     
+For example: `--traceFile "/home/otf2Merger/traces/comp1/traces.otf2"`
 
-2) --commGroupPattern - Input the user defined pattern name to be used by Comm and Location Group Definitions in the unified trace.                
-For example: --commGroupPattern "pycomp"
+`--commGroupPattern` - Input the user defined pattern name to be used by Comm and Location Group Definitions in the unified trace.
 
-3) --outputPath - The user has to set the output path for the unified trace.                                                                                       For example: --outputPath "/home/otf2Merger/traces/unified"
+For example: `--commGroupPattern "pycomp"`
 
-4) --mergedTraceName - The user can provide the output trace name, by default it    is "traces". This particular argument is optional.
+`--outputPath` - The user has to set the output path for the unified trace.                                                                                       
+For example: `--outputPath "/home/otf2Merger/traces/unified"`
+
+`--mergedTraceName` - The user can provide the output trace name, by default its "traces". This particular argument is optional.
 
 Example run:
 ```
