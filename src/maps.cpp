@@ -128,8 +128,7 @@ void Maps::insertIoFileProperty(
 }
 
 void Maps::insertIoFileDefinitionToDatabase() {
-  vector<IoFileDefinition>::iterator iter;
-  for (iter = m_ioFileDefinition.begin(); iter != m_ioFileDefinition.end();
+  for (auto iter = m_ioFileDefinition.begin(); iter != m_ioFileDefinition.end();
        ++iter) {
     auto id = m_traceDefs.insertDefinition(*iter);
     mapIoFileAndDirectory(id);
