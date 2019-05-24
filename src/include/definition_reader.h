@@ -8,54 +8,57 @@
 class DefinitionReader {
 
 public:
-  DefinitionReader(DefinitionStore& traceDefs, Maps& maps, OTF2_Reader* reader,
-                   const string& traceFileName, const string& traceName);
+  DefinitionReader(DefinitionStore &traceDefs, Maps &maps, OTF2_Reader *reader,
+                   const string &traceFileName, const string &traceName);
 
-  DefinitionStore& m_traceDefs;
-  Maps&            m_maps;
+  DefinitionStore &m_traceDefs;
+  Maps &m_maps;
 
   void read();
 
-  void handleDefinition(ClockProperties& clockProps);
+  void handleDefinition(ClockProperties &clockProps);
 
-  void handleDefinition(OTF2_StringRef str, const string& string);
+  void handleDefinition(OTF2_StringRef str, const string &string);
 
-  void handleDefinition(Paradigm& paradigm);
+  void handleDefinition(Paradigm &paradigm);
 
-  void handleDefinition(ParadigmProperty& paradigmProps);
+  void handleDefinition(ParadigmProperty &paradigmProps);
 
-  void handleDefinition(IoParadigm& ioParadigm, const OTF2_IoParadigmProperty* properties,
-                        const OTF2_Type* types, const OTF2_AttributeValue* values,
+  void handleDefinition(IoParadigm &ioParadigm,
+                        const OTF2_IoParadigmProperty *properties,
+                        const OTF2_Type *types,
+                        const OTF2_AttributeValue *values,
                         size_t numberOfProperties);
 
-  void handleDefinition(SystemTreeNode& sysTreeNode);
+  void handleDefinition(SystemTreeNode &sysTreeNode);
 
-  void handleDefinition(SystemTreeNodeProperty& sysTreeNodeProperty);
+  void handleDefinition(SystemTreeNodeProperty &sysTreeNodeProperty);
 
-  void handleDefinition(SystemTreeNodeDomain& sysTreeNodeDomain);
+  void handleDefinition(SystemTreeNodeDomain &sysTreeNodeDomain);
 
-  void handleDefinition(Region& region);
+  void handleDefinition(Region &region);
 
-  void handleDefinition(LocationGroup& locationGroup_props);
+  void handleDefinition(LocationGroup &locationGroup_props);
 
-  void handleDefinition(Location& location);
+  void handleDefinition(Location &location);
 
-  void handleDefinition(Group& group, const uint64_t* members, uint32_t numberOfMembers);
+  void handleDefinition(Group &group, const uint64_t *members,
+                        uint32_t numberOfMembers);
 
-  void handleDefinition(Comm& comm);
+  void handleDefinition(Comm &comm);
 
-  void handleDefinition(Parameter& parameters);
+  void handleDefinition(Parameter &parameters);
 
-  void handleDefinition(Attribute& attributes);
+  void handleDefinition(Attribute &attributes);
 
-  void handleDefinition(IoFileDefinition& ioFileDefinition);
+  void handleDefinition(IoFileDefinition &ioFileDefinition);
 
-  void handleDefinition(OTF2_IoFileRef ioFile, OTF2_StringRef name, OTF2_Type type,
-                        OTF2_AttributeValue value);
+  void handleDefinition(OTF2_IoFileRef ioFile, OTF2_StringRef name,
+                        OTF2_Type type, OTF2_AttributeValue value);
 
-  void handleDefinition(IoHandle& ioHandle);
+  void handleDefinition(IoHandle &ioHandle);
 
-  void handleDefinition(IoPreCreatedHandleState& ioPreCreatedHandle);
+  void handleDefinition(IoPreCreatedHandleState &ioPreCreatedHandle);
 
   ~DefinitionReader();
 
@@ -67,10 +70,10 @@ private:
   void createSerialComm();
 
 private:
-  OTF2_Reader*          m_otf2Reader;
-  OTF2_GlobalDefReader* m_otf2DefReader;
-  const string          m_traceFileName;
-  const string          m_traceName;
+  OTF2_Reader *m_otf2Reader;
+  OTF2_GlobalDefReader *m_otf2DefReader;
+  const string m_traceFileName;
+  const string m_traceName;
 };
 
 #endif

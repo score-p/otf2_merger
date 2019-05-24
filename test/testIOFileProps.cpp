@@ -6,8 +6,8 @@
 #undef private
 #include "catch.hpp"
 
-void printFileDefinitionFromMaps(Maps& maps);
-void insertIoFileDefinitionToDatabase(Maps& maps, DefinitionIntegrator& di);
+void printFileDefinitionFromMaps(Maps &maps);
+void insertIoFileDefinitionToDatabase(Maps &maps, DefinitionIntegrator &di);
 
 SCENARIO("IO TEST CASE ID #1 : To evaluate the IO File and its property "
          "related functions/features in the src code.") {

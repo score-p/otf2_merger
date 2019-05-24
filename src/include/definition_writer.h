@@ -7,7 +7,7 @@
 class DefinitionWriter {
 
 public:
-  DefinitionWriter( OTF2_Archive* archive, DefinitionStore& traceDefs);
+  DefinitionWriter(OTF2_Archive *archive, DefinitionStore &traceDefs);
   void write();
 
 private:
@@ -48,11 +48,11 @@ private:
   void writeIoPreCreatedHandle();
 
 private:
-  DefinitionStore&      m_traceDefs;
-  string                m_archivePath;
-  string                m_archiveName;
-  OTF2_Archive*         m_archive;
-  OTF2_GlobalDefWriter* m_globalDefWriter;
+  DefinitionStore &m_traceDefs;
+  string m_archivePath;
+  string m_archiveName;
+  OTF2_Archive *m_archive;
+  OTF2_GlobalDefWriter *m_globalDefWriter;
 };
 
 #endif
