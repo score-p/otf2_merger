@@ -142,14 +142,14 @@ bool DefinitionStore::hasAbstractNode() {
   return false;
 }
 
-size_t DefinitionStore::verifyAbstractParent(const size_t sysNodeName) {
+bool DefinitionStore::verifyAbstractParent(const size_t sysNodeName) {
   if (m_sysTreeNodeDb.size() > 1) {
     if (m_sysTreeNodeDb[1].s_name != sysNodeName) {
       m_sysTreeNodeDb[0].s_newRootparent = true;
-      return 0;
+      return true;
     }
   }
-  return -1;
+  return false;
 }
 
 std::tuple<vector<SystemTreeNode>::iterator, vector<SystemTreeNode>::iterator>
