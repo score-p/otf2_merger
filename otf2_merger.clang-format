@@ -1,18 +1,18 @@
 {
-    // All these settings have been taken from the clang-format manual, 
-    // and can be customised form within Sublime Text settings files.
-    // Please note, the defaults set below are completely random values.
-    // Take a look at http://clang.llvm.org/docs/ClangFormatStyleOptions.html
-    // For examples.
+  // All these settings have been taken from the clang-format manual,
+  // and can be customised form within Sublime Text settings files.
+  // Please note, the defaults set below are completely random values.
+  // Take a look at http://clang.llvm.org/docs/ClangFormatStyleOptions.html
+  // For examples.
 
-    // The style used for all options not specifically set in the configuration.
-    // Possible "values":
-    //     LLVM 
-    //     Google 
-    //     Chromium 
-    //     Mozilla 
-    //     WebKit 
-    "BasedOnStyle": "LLVM",
+  // The style used for all options not specifically set in the configuration.
+  // Possible "values":
+  //     LLVM
+  //     Google
+  //     Chromium
+  //     Mozilla
+  //     WebKit
+  "BasedOnStyle": "LLVM",
     
     // The extra indent or outdent of access modifiers, e.g. "public":.    
     // "AccessModifierOffset": 2,
@@ -399,14 +399,14 @@
     // LS_Auto (in "configuration": Auto) Automatic detection based on the input.
    "Standard": "Cpp11",
 
-    // The number of columns used for tab stops.
-//  "TabWidth": 2,
+  // The number of columns used for tab stops.
+  //  "TabWidth": 2,
 
-    // The way to use tab characters in the resulting file.
-    // Possible "values":
-    // UT_Never (in "configuration": Never) Never use tab. UT_ForIndentation (in
-    // "configuration": ForIndentation) Use tabs only for indentation. UT_Always
-    // (in "configuration": Always) Use tabs whenever we need to fill whitespace
-    // that spans at least from one tab stop to the next one.
-//  "UseTab": "Never"
+  // The way to use tab characters in the resulting file.
+  // Possible "values":
+  // UT_Never (in "configuration": Never) Never use tab. UT_ForIndentation (in
+  // "configuration": ForIndentation) Use tabs only for indentation. UT_Always
+  // (in "configuration": Always) Use tabs whenever we need to fill whitespace
+  // that spans at least from one tab stop to the next one.
+  //  "UseTab": "Never"
 }

@@ -1,30 +1,28 @@
 #include "maps.h"
 
-Maps::Maps(DefinitionStore& traceDefs)
+Maps::Maps(DefinitionStore &traceDefs)
     : m_traceDefs{traceDefs}, m_serialTrace{true}, m_relativeClockFactor{} {};
 
 void Maps::ComputeRelativeClockFactor() {
-  auto&  clockProps(m_traceDefs.getClockProperties());
+  auto &clockProps(m_traceDefs.getClockProperties());
   size_t clock_id{clockProps.size() - 1};
 
-  m_relativeClockFactor =
-    (double(clockProps[0].s_timerResolution) / double(clockProps[clock_id].s_timerResolution));
+  m_relativeClockFactor = (double(clockProps[0].s_timerResolution) /
+                           double(clockProps[clock_id].s_timerResolution));
 }
 
 size_t Maps::getNewTimestamp(size_t oldTimestamp) {
-  auto&  clockProps(m_traceDefs.getClockProperties());
+  auto &clockProps(m_traceDefs.getClockProperties());
   size_t clock_id{clockProps.size() - 1};
 
-  size_t new_timeStamp =
-    (oldTimestamp - clockProps[clock_id].s_globalOffset) * m_relativeClockFactor +
-    clockProps[0].s_globalOffset;
+  size_t new_timeStamp = (oldTimestamp - clockProps[clock_id].s_globalOffset) *
+                             m_relativeClockFactor +
+                         clockProps[0].s_globalOffset;
 
   return new_timeStamp;
 }
 
-void Maps::mapString(size_t stringID) {
-  m_stringMap.push_back(stringID);
-}
+void Maps::mapString(size_t stringID) { m_stringMap.push_back(stringID); }
 
 size_t Maps::getUnifiedStringID(size_t oldStringID) {
   if (oldStringID < m_stringMap.size()) {
@@ -33,9 +31,7 @@ size_t Maps::getUnifiedStringID(size_t oldStringID) {
     return 0;
 }
 
-void Maps::mapRegion(size_t regionID) {
-  m_regionMap.push_back(regionID);
-}
+void Maps::mapRegion(size_t regionID) { m_regionMap.push_back(regionID); }
 
 size_t Maps::getRegionID(size_t oldRegionID) {
   if (oldRegionID < m_regionMap.size()) {
@@ -101,9 +97,7 @@ size_t Maps::getGroupID(size_t oldGroupID) {
     return 0;
 }
 
-void Maps::mapComm(size_t commID) {
-  m_commMap.push_back(commID);
-}
+void Maps::mapComm(size_t commID) { m_commMap.push_back(commID); }
 
 size_t Maps::getCommID(size_t oldCommID) {
   if (oldCommID < m_groupMap.size()) {
@@ -123,18 +117,20 @@ size_t Maps::getSystemTreeNodeID(size_t oldSysID) {
     return 0;
 }
 
-void Maps::insertIoFile(IoFileDefinition& ioFileDefinition) {
+void Maps::insertIoFile(IoFileDefinition &ioFileDefinition) {
   m_ioFileDefinition.push_back(ioFileDefinition);
 }
 
-void Maps::insertIoFileProperty(const OTF2_IoFileRef&                             ioFileRef,
-                                const tuple<OTF2_StringRef, OTF2_Type, uint32_t>& ioProperty) {
+void Maps::insertIoFileProperty(
+    const OTF2_IoFileRef &ioFileRef,
+    const tuple<OTF2_StringRef, OTF2_Type, uint32_t> &ioProperty) {
   m_ioFileDefinition[ioFileRef].s_ioProperty.insert(ioProperty);
 }
 
 void Maps::insertIoFileDefinitionToDatabase() {
   vector<IoFileDefinition>::iterator iter;
-  for (iter = m_ioFileDefinition.begin(); iter != m_ioFileDefinition.end(); ++iter) {
+  for (iter = m_ioFileDefinition.begin(); iter != m_ioFileDefinition.end();
+       ++iter) {
     auto id = m_traceDefs.insertDefinition(*iter);
     mapIoFileAndDirectory(id);
   }
@@ -162,9 +158,7 @@ size_t Maps::getIoHandle(size_t oldHandleID) {
     return 0;
 }
 
-bool Maps::isSerialTrace() {
-  return m_serialTrace;
-}
+bool Maps::isSerialTrace() { return m_serialTrace; }
 
 Group Maps::getSerialTraceGroup(int groupID) {
   Group group;
