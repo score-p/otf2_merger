@@ -443,7 +443,7 @@ void DefinitionReader::handleDefinition(SystemTreeNode& sysTreeNode) {
   auto require_abstract_node(m_traceDefs.hasAbstractNode());
   if (require_abstract_node == true) {
 
-    auto new_name{"HPC"};
+    const std::string new_name{"HPC"};
     auto string_name_id(m_traceDefs.insertDefinition(new_name));
 
     SystemTreeNode sys_tree_node{0, ( uint32_t ) string_name_id, sysTreeNode.s_className,
@@ -495,8 +495,8 @@ void DefinitionReader::handleDefinition(LocationGroup& locationGroup_props) {
   locationGroup_props.s_name = m_maps.getUnifiedStringID(locationGroup_props.s_name);
 
   auto string_tuple(m_traceDefs.getStringRange());
-  auto start_itr{std::get<0>(string_tuple)};
-  auto new_name{*(start_itr + locationGroup_props.s_name) + "_" + m_traceName};
+  auto start_itr = std::get<0>(string_tuple);
+  auto new_name = *(start_itr + locationGroup_props.s_name) + "_" + m_traceName;
   auto string_name_id(m_traceDefs.insertDefinition(new_name));
 
   locationGroup_props.s_name = string_name_id;
@@ -547,9 +547,9 @@ void DefinitionReader::handleDefinition(Comm& comms) {
   comms.s_name = m_maps.getUnifiedStringID(comms.s_name);
 
   auto string_tuple(m_traceDefs.getStringRange());
-  auto start_itr{std::get<0>(string_tuple)};
+  auto start_itr = std::get<0>(string_tuple);
 
-  auto new_name{*(start_itr + comms.s_name) + "_" + m_traceName};
+  const std::string new_name{*(start_itr + comms.s_name) + "_" + m_traceName};
   auto string_name_id(m_traceDefs.insertDefinition(new_name));
   comms.s_name = string_name_id;
   comms.s_group = m_maps.getGroupID(comms.s_group);

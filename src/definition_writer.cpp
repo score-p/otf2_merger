@@ -49,23 +49,22 @@ size_t compareTraceLength( const ClockProperties& clockProps1,
 }
 
 void DefinitionWriter::writeString() {
-  auto string_tuple( m_traceDefs.getStringRange() );
+  auto string_tuple = m_traceDefs.getStringRange();
 
-  auto start_itr{std::get< 0 >( string_tuple )};
-  auto end_itr{std::get< 1 >( string_tuple )};
+  auto start_itr = std::get<0>( string_tuple );
+  auto end_itr = std::get<1>( string_tuple );
 
   for ( auto string_itr = start_itr; string_itr != end_itr; string_itr++ ) {
-    auto id{string_itr - start_itr};
-    OTF2_GlobalDefWriter_WriteString(
-      m_globalDefWriter, id, ( *string_itr ).c_str() );
+    auto id = string_itr - start_itr;
+    OTF2_GlobalDefWriter_WriteString( m_globalDefWriter, id, string_itr->c_str() );
   }
 }
 
 void DefinitionWriter::writeParadigm() {
-  auto paradigm_tuple( m_traceDefs.getParadigmRange() );
+  auto paradigm_tuple = m_traceDefs.getParadigmRange();
 
-  auto start_itr{std::get< 0 >( paradigm_tuple )};
-  auto end_itr{std::get< 1 >( paradigm_tuple )};
+  auto start_itr = std::get< 0 >( paradigm_tuple );
+  auto end_itr = std::get< 1 >( paradigm_tuple );
 
   for ( auto paradigm_itr = start_itr; paradigm_itr != end_itr;
         paradigm_itr++ ) {
@@ -80,8 +79,8 @@ void DefinitionWriter::writeParadigm() {
 void DefinitionWriter::writeParadigmProperty() {
   auto paradigm_property_tuple( m_traceDefs.getParadigmPropertyRange() );
 
-  auto start_itr{std::get< 0 >( paradigm_property_tuple )};
-  auto end_itr{std::get< 1 >( paradigm_property_tuple )};
+  auto start_itr = std::get< 0 >( paradigm_property_tuple );
+  auto end_itr = std::get< 1 >( paradigm_property_tuple );
 
   for ( auto paradigm_property_itr = start_itr;
         paradigm_property_itr != end_itr;
@@ -99,18 +98,17 @@ void DefinitionWriter::writeParadigmProperty() {
 void DefinitionWriter::writeIoParadigm() {
   auto io_paradigm_tuple( m_traceDefs.getIoParadigmRange() );
 
-  auto start_itr{std::get< 0 >( io_paradigm_tuple )};
-  auto end_itr{std::get< 1 >( io_paradigm_tuple )};
+  auto start_itr = std::get< 0 >( io_paradigm_tuple );
+  auto end_itr = std::get< 1 >( io_paradigm_tuple );
 
   for ( auto io_paradigm_itr = start_itr; io_paradigm_itr != end_itr;
         io_paradigm_itr++ ) {
-    auto id{io_paradigm_itr - start_itr};
-    vector< uint8_t >::iterator it1{io_paradigm_itr->s_ioProperties.begin()};
-    uint8_t*  io_props{&( *it1 )};
-    vector< uint8_t >::iterator it2{io_paradigm_itr->s_types.begin()};
-    uint8_t*  types{&( *it2 )};
-    vector< OTF2_AttributeValue >::iterator it3{io_paradigm_itr->s_values.begin()};
-    OTF2_AttributeValue* values{&( *it3 )};
+
+    auto id = io_paradigm_itr - start_itr;
+
+    uint8_t*  io_props = io_paradigm_itr->s_ioProperties.data();
+    uint8_t*  types = io_paradigm_itr->s_types.data();
+    OTF2_AttributeValue* values = io_paradigm_itr->s_values.data();
 
     OTF2_GlobalDefWriter_WriteIoParadigm(
       m_globalDefWriter,
@@ -129,18 +127,18 @@ void DefinitionWriter::writeIoParadigm() {
 void DefinitionWriter::writeSystemTreeNode() {
   auto sys_tree_node_tuple( m_traceDefs.getSystemTreeNodeRange() );
 
-  auto   start_itr{std::get< 0 >( sys_tree_node_tuple )};
-  auto   end_itr{std::get< 1 >( sys_tree_node_tuple )};
-  size_t start_id{};
+  auto   start_itr = std::get< 0 >( sys_tree_node_tuple );
+  auto   end_itr = std::get< 1 >( sys_tree_node_tuple );
+  size_t start_id = 0;
   if ( start_itr->s_newRootparent != true ) {
     start_itr = start_itr + 1;
     start_id = 1;
-  } else
+  } else {
     ( start_itr + 1 )->s_parent = 0;
-
+  }
   for ( auto sys_tree_node_itr = start_itr; sys_tree_node_itr != end_itr;
         sys_tree_node_itr++ ) {
-    auto id{start_id + sys_tree_node_itr - start_itr};
+    auto id = start_id + sys_tree_node_itr - start_itr;
     OTF2_GlobalDefWriter_WriteSystemTreeNode( m_globalDefWriter,
                                               id,
                                               sys_tree_node_itr->s_name,
@@ -150,11 +148,11 @@ void DefinitionWriter::writeSystemTreeNode() {
 }
 
 void DefinitionWriter::writeSystemTreeNodeProperty() {
-  auto sys_tree_node_property_tuple(
-    m_traceDefs.getSystemTreeNodePropertyRange() );
+  auto sys_tree_node_property_tuple =
+    m_traceDefs.getSystemTreeNodePropertyRange();
 
-  auto start_itr{std::get< 0 >( sys_tree_node_property_tuple )};
-  auto end_itr{std::get< 1 >( sys_tree_node_property_tuple )};
+  auto start_itr = std::get< 0 >( sys_tree_node_property_tuple );
+  auto end_itr = std::get< 1 >( sys_tree_node_property_tuple );
 
   for ( auto sys_tree_node_property_itr = start_itr;
         sys_tree_node_property_itr != end_itr;
@@ -170,10 +168,10 @@ void DefinitionWriter::writeSystemTreeNodeProperty() {
 }
 
 void DefinitionWriter::writeSystemTreeNodeDomain() {
-  auto sys_tree_node_domain_tuple( m_traceDefs.getSystemTreeNodeDomainRange() );
+  auto sys_tree_node_domain_tuple = m_traceDefs.getSystemTreeNodeDomainRange();
 
-  auto start_itr{std::get< 0 >( sys_tree_node_domain_tuple )};
-  auto end_itr{std::get< 1 >( sys_tree_node_domain_tuple )};
+  auto start_itr = std::get< 0 >( sys_tree_node_domain_tuple );
+  auto end_itr = std::get< 1 >( sys_tree_node_domain_tuple );
 
   for ( auto sys_tree_node_domain_itr = start_itr;
         sys_tree_node_domain_itr != end_itr;
@@ -187,14 +185,14 @@ void DefinitionWriter::writeSystemTreeNodeDomain() {
 }
 
 void DefinitionWriter::writeRegion() {
-  auto region_tuple( m_traceDefs.getRegionRange() );
+  auto region_tuple = m_traceDefs.getRegionRange();
 
-  auto start_itr{std::get< 0 >( region_tuple )};
-  auto end_itr{std::get< 1 >( region_tuple )};
+  auto start_itr = std::get< 0 >( region_tuple );
+  auto end_itr = std::get< 1 >( region_tuple );
 
   for ( auto region_itr = start_itr; region_itr != end_itr; region_itr++ ) {
 
-    auto id{region_itr - start_itr};
+    auto id = region_itr - start_itr;
 
     OTF2_GlobalDefWriter_WriteRegion( m_globalDefWriter,
                                       id,
@@ -212,15 +210,15 @@ void DefinitionWriter::writeRegion() {
 
 void DefinitionWriter::writeLocationGroup() {
 
-  auto location_group_tuple( m_traceDefs.getLocationGroupRange() );
+  auto location_group_tuple = m_traceDefs.getLocationGroupRange();
 
-  auto start_itr{std::get< 0 >( location_group_tuple )};
-  auto end_itr{std::get< 1 >( location_group_tuple )};
+  auto start_itr = std::get< 0 >( location_group_tuple );
+  auto end_itr = std::get< 1 >( location_group_tuple );
 
   for ( auto location_group_itr = start_itr; location_group_itr != end_itr;
         location_group_itr++ ) {
 
-    auto id{location_group_itr - start_itr};
+    auto id = location_group_itr - start_itr;
 
     OTF2_GlobalDefWriter_WriteLocationGroup(
       m_globalDefWriter,
@@ -233,14 +231,14 @@ void DefinitionWriter::writeLocationGroup() {
 
 void DefinitionWriter::writeLocation() {
 
-  auto location_tuple( m_traceDefs.getLocationRange() );
+  auto location_tuple = m_traceDefs.getLocationRange();
 
-  auto start_itr{std::get< 0 >( location_tuple )};
-  auto end_itr{std::get< 1 >( location_tuple )};
+  auto start_itr = std::get< 0 >( location_tuple );
+  auto end_itr = std::get< 1 >( location_tuple );
 
   for ( auto location_itr = start_itr; location_itr != end_itr;
         location_itr++ ) {
-    auto id{location_itr - start_itr};
+    auto id = location_itr - start_itr;
     OTF2_GlobalDefWriter_WriteLocation( m_globalDefWriter,
                                         id,
                                         location_itr->s_name,
@@ -252,15 +250,18 @@ void DefinitionWriter::writeLocation() {
 
 void DefinitionWriter::writeGroup() {
 
-  auto group_tuple( m_traceDefs.getGroupRange() );
+  auto group_tuple = m_traceDefs.getGroupRange();
 
-  auto start_itr{std::get< 0 >( group_tuple )};
-  auto end_itr{std::get< 1 >( group_tuple )};
+  auto start_itr = std::get< 0 >( group_tuple );
+  auto end_itr = std::get< 1 >( group_tuple );
 
   for ( auto group_itr = start_itr; group_itr != end_itr; group_itr++ ) {
-    auto id{group_itr - start_itr};
-    vector< size_t >::iterator it{group_itr->s_groupMembers.begin()};
-    size_t* p{&( *it )};
+    auto id = group_itr - start_itr;
+
+    //vector< size_t >::iterator it{group_itr->s_groupMembers.begin()};
+    size_t * p = group_itr->s_groupMembers.data();
+     
+
     OTF2_GlobalDefWriter_WriteGroup( m_globalDefWriter,
                                      id,
                                      group_itr->s_name,
@@ -274,13 +275,13 @@ void DefinitionWriter::writeGroup() {
 
 void DefinitionWriter::writeComm() {
 
-  auto comm_tuple( m_traceDefs.getCommRange() );
+  auto comm_tuple = m_traceDefs.getCommRange();
 
-  auto start_itr{std::get< 0 >( comm_tuple )};
-  auto end_itr{std::get< 1 >( comm_tuple )};
+  auto start_itr = std::get< 0 >( comm_tuple );
+  auto end_itr = std::get< 1 >( comm_tuple );
 
   for ( auto comm_itr = start_itr; comm_itr != end_itr; comm_itr++ ) {
-    auto id{comm_itr - start_itr};
+    auto id = comm_itr - start_itr;
     OTF2_GlobalDefWriter_WriteComm( m_globalDefWriter,
                                     id,
                                     comm_itr->s_name,
@@ -292,12 +293,12 @@ void DefinitionWriter::writeComm() {
 void DefinitionWriter::writeParameter() {
   auto parameter_tuple( m_traceDefs.getParameterRange() );
 
-  auto start_itr{std::get< 0 >( parameter_tuple )};
-  auto end_itr{std::get< 1 >( parameter_tuple )};
+  auto start_itr = std::get< 0 >( parameter_tuple );
+  auto end_itr = std::get< 1 >( parameter_tuple );
 
   for ( auto parameter_itr = start_itr; parameter_itr != end_itr;
         parameter_itr++ ) {
-    auto id{parameter_itr - start_itr};
+    auto id = parameter_itr - start_itr;
     OTF2_GlobalDefWriter_WriteParameter( m_globalDefWriter,
                                          id,
                                          parameter_itr->s_name,
@@ -306,14 +307,14 @@ void DefinitionWriter::writeParameter() {
 }
 
 void DefinitionWriter::writeAttribute() {
-  auto attribute_tuple( m_traceDefs.getAttributeRange() );
+  auto attribute_tuple = m_traceDefs.getAttributeRange();
 
-  auto start_itr{std::get< 0 >( attribute_tuple )};
-  auto end_itr{std::get< 1 >( attribute_tuple )};
+  auto start_itr = std::get< 0 >( attribute_tuple );
+  auto end_itr = std::get< 1 >( attribute_tuple );
 
   for ( auto attribute_itr = start_itr; attribute_itr != end_itr;
         attribute_itr++ ) {
-    auto id{attribute_itr - start_itr};
+    auto id = attribute_itr - start_itr;
     OTF2_GlobalDefWriter_WriteAttribute( m_globalDefWriter,
                                          id,
                                          attribute_itr->s_name,
@@ -325,11 +326,11 @@ void DefinitionWriter::writeAttribute() {
 void DefinitionWriter::writeIoFileDefinition() {
   auto io_tuple( m_traceDefs.getIoFileDefinitionRange() );
 
-  auto start_itr{std::get< 0 >( io_tuple )};
-  auto end_itr{std::get< 1 >( io_tuple )};
+  auto start_itr = std::get< 0 >( io_tuple );
+  auto end_itr = std::get< 1 >( io_tuple );
 
   for ( auto io_itr = start_itr; io_itr != end_itr; io_itr++ ) {
-    auto id{io_itr - start_itr};
+    auto id = io_itr - start_itr;
 
     if ( io_itr->s_ioType == "Directory" ) {
       OTF2_GlobalDefWriter_WriteIoDirectory(
@@ -359,13 +360,13 @@ void DefinitionWriter::writeIoFileDefinition() {
 }
 
 void DefinitionWriter::writeIoHandle() {
-  auto io_tuple( m_traceDefs.getIoHandleRange() );
+  auto io_tuple = m_traceDefs.getIoHandleRange();
 
-  auto start_itr{std::get< 0 >( io_tuple )};
-  auto end_itr{std::get< 1 >( io_tuple )};
+  auto start_itr = std::get< 0 >( io_tuple );
+  auto end_itr = std::get< 1 >( io_tuple );
 
   for ( auto io_tuple = start_itr; io_tuple != end_itr; io_tuple++ ) {
-    auto id{io_tuple - start_itr};
+    auto id = io_tuple - start_itr;
     OTF2_GlobalDefWriter_WriteIoHandle( m_globalDefWriter,
                                         id,
                                         io_tuple->s_name,
@@ -378,10 +379,10 @@ void DefinitionWriter::writeIoHandle() {
 }
 
 void DefinitionWriter::writeIoPreCreatedHandle() {
-  auto io_tuple{m_traceDefs.getIoPreCreatedHandle()};
+  auto io_tuple = m_traceDefs.getIoPreCreatedHandle();
 
-  auto start_itr{std::get< 0 >( io_tuple )};
-  auto end_itr{std::get< 1 >( io_tuple )};
+  auto start_itr = std::get< 0 >( io_tuple );
+  auto end_itr = std::get< 1 >( io_tuple );
 
   for ( auto io_tuple = start_itr; io_tuple != end_itr; io_tuple++ ) {
     OTF2_GlobalDefWriter_WriteIoPreCreatedHandleState(

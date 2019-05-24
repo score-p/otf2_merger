@@ -810,8 +810,8 @@ void EventProcessor::readLocationWise() {
 
   for (auto location_itr = start_itr; location_itr != end_itr; location_itr++) {
 
-    auto reading_location{location_itr->first};
-    auto writing_location{location_itr->second};
+    auto reading_location = location_itr->first;
+    auto writing_location = location_itr->second;
 
     OTF2_Reader_SelectLocation(m_otf2Reader, reading_location);
 
