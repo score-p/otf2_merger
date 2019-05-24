@@ -76,8 +76,8 @@ size_t Maps::getNewLocationID(size_t oldLocationID) {
 
 std::tuple<map<size_t, size_t>::iterator, map<size_t, size_t>::iterator>
 Maps::getLocationRange() {
-  auto start_itr{m_locationIdMap.begin()};
-  auto end_itr{m_locationIdMap.end()};
+  auto start_itr = m_locationIdMap.begin();
+  auto end_itr = m_locationIdMap.end();
   return make_tuple(start_itr, end_itr);
 }
 
@@ -135,7 +135,7 @@ void Maps::insertIoFileProperty(const OTF2_IoFileRef&                           
 void Maps::insertIoFileDefinitionToDatabase() {
   vector<IoFileDefinition>::iterator iter;
   for (iter = m_ioFileDefinition.begin(); iter != m_ioFileDefinition.end(); ++iter) {
-    auto id{m_traceDefs.insertDefinition(*iter)};
+    auto id = m_traceDefs.insertDefinition(*iter);
     mapIoFileAndDirectory(id);
   }
 }
