@@ -477,9 +477,7 @@ void DefinitionReader::handleDefinition(SystemTreeNode &sysTreeNode) {
 
   else {
     if (sysTreeNode.s_parent == OTF2_UNDEFINED_SYSTEM_TREE_NODE) {
-      auto status(m_traceDefs.verifyAbstractParent(sysTreeNode.s_name));
-      if (status == true)
-        sysTreeNode.s_parent = 0;
+      sysTreeNode.s_parent = m_traceDefs.getAbstractParent(sysTreeNode.s_name);
     } else {
       sysTreeNode.s_parent = m_maps.getSystemTreeNodeID(sysTreeNode.s_parent);
     }
