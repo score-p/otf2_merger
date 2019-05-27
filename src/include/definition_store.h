@@ -268,7 +268,7 @@ public:
 
   bool hasAbstractNode();
   size_t insertDefinition(SystemTreeNode &sysTreeNode);
-  bool verifyAbstractParent(const size_t sysNodeName);
+  uint32_t getAbstractParent(const size_t sysNodeName);
 
   std::tuple<vector<SystemTreeNode>::iterator, vector<SystemTreeNode>::iterator>
   getSystemTreeNodeRange();
